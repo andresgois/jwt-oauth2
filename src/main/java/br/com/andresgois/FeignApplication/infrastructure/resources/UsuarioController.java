@@ -1,8 +1,7 @@
 package br.com.andresgois.FeignApplication.infrastructure.resources;
 
 import br.com.andresgois.FeignApplication.domain.entities.Usuario;
-import br.com.andresgois.FeignApplication.infrastructure.exceptions.RestResponseEntityExceptionHandler;
-import br.com.andresgois.FeignApplication.infrastructure.exceptions.UserPrincipalNotFoundException;
+import br.com.andresgois.FeignApplication.infrastructure.exceptions.UserNotFoundException;
 import br.com.andresgois.FeignApplication.infrastructure.persistence.UsuarioRepository;
 import br.com.andresgois.FeignApplication.infrastructure.representation.UsuarioRequest;
 import br.com.andresgois.FeignApplication.infrastructure.representation.UsuarioResponse;
@@ -44,7 +43,7 @@ public class UsuarioController {
     public ResponseEntity<UsuarioResponse> userById(@PathVariable(value = "id") UUID id){
         Optional<Usuario> user = repository.findById(id);
         if(!user.isPresent()){
-            throw new UserPrincipalNotFoundException();
+            throw new UserNotFoundException();
         }
         return ResponseEntity.ok(new UsuarioResponse(
                 user.get().getId().toString(),

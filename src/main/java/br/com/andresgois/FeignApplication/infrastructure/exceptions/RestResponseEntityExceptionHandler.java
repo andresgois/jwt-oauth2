@@ -14,10 +14,10 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         super();
     }
 
-    @ExceptionHandler(value = {UserPrincipalNotFoundException.class})
+    @ExceptionHandler(value = {UserNotFoundException.class})
     public ResponseEntity<ErrorResponse> userPrincipalNotFoundException(
             final HttpServletRequest request,
-            final UserPrincipalNotFoundException user
+            final UserNotFoundException user
     ) {
         ErrorResponse userNotFound = new ErrorResponse(HttpStatus.NOT_FOUND.value(), "Usuário não econtrado");
         return ResponseEntity.ok(userNotFound);
