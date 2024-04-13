@@ -10,13 +10,13 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "tb_users")
-public class Usuario {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "user_id")
     private UUID id;
-    private String nome;
+    private String name;
     @Column(unique = true)
     private String email;
     private String password;
@@ -29,9 +29,9 @@ public class Usuario {
     )
     private Set<Role> roles;
 
-    public Usuario(){}
-    public Usuario(String nome, String email,String password) {
-        this.nome = nome;
+    public User(){}
+    public User(String name, String email, String password) {
+        this.name = name;
         this.email = email;
         this.password = password;
     }
@@ -44,12 +44,12 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String nome) {
+        this.name = nome;
     }
 
     public String getEmail() {

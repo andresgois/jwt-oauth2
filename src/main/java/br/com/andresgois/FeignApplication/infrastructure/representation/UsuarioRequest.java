@@ -1,16 +1,16 @@
 package br.com.andresgois.FeignApplication.infrastructure.representation;
 
-import br.com.andresgois.FeignApplication.domain.entities.Usuario;
+import br.com.andresgois.FeignApplication.domain.entities.User;
 
 public record UsuarioRequest (
-        String nome,
+        String name,
         String email,
         String password
         ){
 
-        public Usuario toEntity(){
-                return new Usuario(
-                        nome,
+        public User toEntity(){
+                return new User(
+                        name,
                         email,
                         password
                 );

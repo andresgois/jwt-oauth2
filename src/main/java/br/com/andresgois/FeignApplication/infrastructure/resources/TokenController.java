@@ -1,8 +1,8 @@
 package br.com.andresgois.FeignApplication.infrastructure.resources;
 
 import br.com.andresgois.FeignApplication.domain.entities.Role;
-import br.com.andresgois.FeignApplication.domain.entities.Usuario;
-import br.com.andresgois.FeignApplication.infrastructure.persistence.UsuarioRepository;
+import br.com.andresgois.FeignApplication.domain.entities.User;
+import br.com.andresgois.FeignApplication.infrastructure.persistence.UserRepository;
 import br.com.andresgois.FeignApplication.infrastructure.representation.LoginRequest;
 import br.com.andresgois.FeignApplication.infrastructure.representation.LoginResponse;
 import org.springframework.http.ResponseEntity;
@@ -23,18 +23,18 @@ import java.util.stream.Collectors;
 public class TokenController {
 
     private final JwtEncoder jwtEncoder;
-    private final UsuarioRepository usuarioRepository;
+    private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
 
-    public TokenController(JwtEncoder jwtEncoder, UsuarioRepository usuarioRepository, BCryptPasswordEncoder encoder) {
+    public TokenController(JwtEncoder jwtEncoder, UserRepository userRepository, BCryptPasswordEncoder encoder) {
         this.jwtEncoder = jwtEncoder;
-        this.usuarioRepository = usuarioRepository;
+        this.userRepository = userRepository;
         this.encoder = encoder;
     }
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request){
-        Optional<Usuario> user = usuarioRepository.findByEmail(request.email());
+        Optional<User> user = userRepository.findByEmail(request.email());
         if(user.isEmpty() || !user.get().isLoginCorrect(request, encoder) ){
             throw new BadCredentialsException("User or password is invalid!");
         }
