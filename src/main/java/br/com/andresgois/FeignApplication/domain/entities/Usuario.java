@@ -1,7 +1,9 @@
 package br.com.andresgois.FeignApplication.domain.entities;
 
 
+import br.com.andresgois.FeignApplication.infrastructure.representation.LoginRequest;
 import jakarta.persistence.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Set;
 import java.util.UUID;
@@ -28,10 +30,10 @@ public class Usuario {
     private Set<Role> roles;
 
     public Usuario(){}
-    public Usuario(UUID id, String nome, String email) {
-        this.id = id;
+    public Usuario(String nome, String email,String password) {
         this.nome = nome;
         this.email = email;
+        this.password = password;
     }
 
     public UUID getId() {
@@ -72,5 +74,9 @@ public class Usuario {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public boolean isLoginCorrect(LoginRequest request, PasswordEncoder encoder){
+        return encoder.matches(request.password(), this.password);
     }
 }
